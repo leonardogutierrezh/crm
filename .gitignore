@@ -1,0 +1,7 @@
+cases/*.pyc
+cases/migrations/*.pyc
+contacts/*.pyc
+contacts/migrations/*.pyc
+crm/*.pyc
+.idea/vcs.xml
+.idea/workspace.xml
