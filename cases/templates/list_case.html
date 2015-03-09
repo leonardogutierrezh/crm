@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<table>
+    {% for case in cases %}
+
+        <tr>
+            <td>{{ case.title }}</td>
+            <td>{{ case.type }}</td>
+        </tr>
+
+    {% endfor %}
+</table>
+
+
+
+</body>
+</html>
