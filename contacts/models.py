@@ -1,9 +1,6 @@
 from django.db import models
 
 # Create your models here.
-class Company(models.Model):
-    name = models.CharField(max_length=300, verbose_name='Nombre de la Empresa')
-
 class Contact(models.Model):
     c_country = (
         ('Venezuela', 'Venezuela'),
@@ -24,7 +21,7 @@ class Contact(models.Model):
         ('Otro', 'Otro'),
     )
     country = models.CharField(max_length=30, verbose_name='Pais', choices=c_country)
-    company = models.ForeignKey(Company, blank=True, null=True, verbose_name='Empresa', related_name='belongs_to')
+    company = models.CharField(max_length=200, verbose_name='Compania', null=True, blank=True)
     person = models.CharField(max_length=200, verbose_name='Persona Contacto')
     rank = models.CharField(max_length=300, verbose_name='Cargo', blank=True, null=True)
     phone = models.CharField(max_length=20, verbose_name='Telefono Fijo')
