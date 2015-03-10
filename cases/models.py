@@ -16,10 +16,22 @@ class Case(models.Model):
         ('Presupuesto', 'Presupuesto'),
         ('Instalacion', 'Instalacion'),
     )
+    c_priority = (
+        ('Alta', 'Alta'),
+        ('Media', 'Media'),
+        ('Baja', 'Baja')
+    )
+    c_status = (
+        ('Abierto', 'Abierto'),
+        ('Espera', 'Espera'),
+        ('Cerrado', 'Cerrado'),
+    )
     title = models.CharField(max_length=500, verbose_name='Titulo')
     type = models.CharField(max_length=30, choices=c_type, verbose_name='Tipo')
     description = models.TextField(max_length=5000, verbose_name='Descripcion')
     date = models.DateTimeField(auto_created=True)
+    priority = models.CharField(max_length=100, verbose_name='Prioridad', choices=c_priority)
+    status = models.CharField(max_length=100, verbose_name='Estatus', choices=c_status)
     assigned = models.ForeignKey(UserFullName)
 
 

@@ -20,6 +20,10 @@ class Contact(models.Model):
         ('Feria', 'Feria'),
         ('Otro', 'Otro'),
     )
+    c_document_type = (
+        ('Cedula', 'Cedula'),
+        ('Rif', 'Rif'),
+    )
     country = models.CharField(max_length=30, verbose_name='Pais', choices=c_country)
     company = models.CharField(max_length=200, verbose_name='Compania', null=True, blank=True)
     person = models.CharField(max_length=200, verbose_name='Persona Contacto')
@@ -29,3 +33,5 @@ class Contact(models.Model):
     email = models.EmailField()
     type = models.CharField(max_length=100, verbose_name='Tipo de cliente')
     origin = models.CharField(max_length=100, verbose_name='Origen del cliente')
+    document_type = models.CharField(max_length=20, verbose_name='Tipo de Documento', choices=c_document_type, blank=True, null=True)
+    document = models.CharField(max_length=100, verbose_name='Rif o Cedula', null=True, blank=True)
