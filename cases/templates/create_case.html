@@ -1,13 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-<form action="">
-
-    {{ form }}
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block title %}Crear Caso{% endblock %}
+{% block content %}
+<form action="" method="post">{% csrf_token %}
+    {{ form | bootstrap}}
+    <input class="btn btn-default" type="submit" value="Guardar"/>
 </form>
-</body>
-</html>
+{% endblock %}

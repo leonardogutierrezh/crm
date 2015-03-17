@@ -9,14 +9,26 @@ from django.contrib import messages
 
 from cases.models import Case
 from cases.forms import CaseForm
+from contacts.models import Contact
 # Create your views here.
+
 
 
 class CreateCase(generic.CreateView):
     model = Case
     form_class = CaseForm
     template_name = 'create_case.html'
+    success_url = "/case/list_case"
 
+    def form_valid(self, form):
+        """
+        If the form is valid, save the associated model.
+        """
+        print self.kwargs['pk']
+        self.object = form.save(commit=False)
+        self.object.contact = Contact.objects.get(pk=self.kwargs['pk'])
+        self.object.save()
+        return super(ModelFormMixin, self).form_valid(form)
 
 class ListCase(generic.ListView):
     model = Case

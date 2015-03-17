@@ -10,4 +10,5 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^case/', include('cases.urls')),
+    url(r'^contact/', include('contacts.urls')),
 )

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}
+    Contactos
+{% endblock %}
+{% block content %}
+    <a href="{% url "contact_create" %}">Nuevo Contacto</a>
+    <table>
+        <th>Compañia</th>
+        <th>Persona Contacto</th>
+        <th>Continuar</th>
+        {% for contact in contact_list %}
+            <tr>
+                <td>{{ contact.company }}</td>
+                <td>{{ contact.person }}</td>
+                <td><a href="{% url "create_case" contact.pk %}">Continuar</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
