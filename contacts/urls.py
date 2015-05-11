@@ -4,7 +4,7 @@ from .views import CreateContact, ListContact
 
 urlpatterns = patterns('',
 
-    url(r'^create_contact/$', CreateContact.as_view(), name='contact_create'),
-    url(r'^list_contact/$', ListContact.as_view(), name='contact_list'),
+    url(r'^create/$', CreateContact.as_view(), name='contact_create'),
+    url(r'^list/$', ListContact.as_view(), name='contact_list'),
 
 )
