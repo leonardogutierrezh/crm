@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block title %}
+    Mis Casos Pendientes
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <table id="table" class="table-responsive table table-striped table-hover">
+                <thead>
+                    <th>Caso</th>
+                    <th>Tipo</th>
+                    <th>Estatus</th>
+                    <th>Prioridad</th>
+                    <th>Accion</th>
+                </thead>
+                <tbody>
+                    {% for case in casetrack_list %}
+
+                        <tr>
+                            <td>{{ case.case.title }}</td>
+                            <td>{{ case.case.type }}</td>
+                            <td>{{ case.case.status }}</td>
+                            <td>
+
+                                {% if case.case.status == 'Abierto' %}
+                                    {% if case.case.priority == 'Alta' %}
+                                        <span class="alert-danger">{{ case.case.priority }} !!!</span>
+                                    {% elif case.case.priority == 'Media' %}
+                                        <span class="alert-warning">{{ case.case.priority }} !!</span>
+                                    {% else %}
+                                        <span class="alert-success">{{ case.case.priority }} !</span>
+                                    {% endif %}
+                                {% endif %}
+
+                            </td>
+                            <td>
+                                <a href="{% url 'send_case' case.pk %}" class="btn btn-default btn-xs">Ver</a>
+                                <a href="" class="btn btn-default btn-xs">Editar</a>
+                                <a href="" class="btn btn-danger btn-xs">Borrar</a>
+                            </td>
+                        </tr>
+
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block extrascripts %}
+    <script src="{{ STATIC_URL }}js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="{{ STATIC_URL }}js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#table').DataTable();
+        });
+        function Delete(pk){
+            var result = confirm("Want to delete?");
+            if (result) {
+                var url = '/clients/delete/' + pk;
+                window.location = url;
+                //Logic to delete the item
+            }
+        }
+    </script>
+{% endblock %}
+{% block extracss %}
+    <link href="{{STATIC_URL}}css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+{% endblock %}

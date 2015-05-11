@@ -1,3 +1,7 @@
+__author__ = 'leonardogutierrezh'
 from django.contrib import admin
+from cases.models import Case, CaseTrack, Reminder
 
-# Register your models here.
+admin.site.register(Case)
+admin.site.register(CaseTrack)
+admin.site.register(Reminder)

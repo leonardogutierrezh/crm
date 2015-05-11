@@ -37,11 +37,11 @@ class Case(models.Model):
 
 
 class CaseTrack(models.Model):
-    date = models.DateTimeField(auto_created=True)
-    user_to = models.ForeignKey(UserFullName, related_name='from')
+    date = models.DateTimeField(auto_now_add=True)
+    user_to = models.ForeignKey(UserFullName, related_name='from', verbose_name='Para')
     user_from = models.ForeignKey(UserFullName, related_name='to')
-    notes_from = models.TextField(max_length=5000)
-    notes_to = models.TextField(max_length=5000)
+    notes = models.TextField(max_length=5000)
+    done = models.BooleanField(default=False)
     case = models.ForeignKey(Case)
 
 

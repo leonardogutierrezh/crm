@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block title %}
+    {{ case.title }}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>Asignado a {{ case.assigned }}</h4>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-6">
+                    <strong>Tipo:</strong> {{ case.type }}
+                </div>
+                <div class="col-md-6">
+                    <strong>Prioridad: </strong>{{ case.priority }}
+                </div>
+                <div class="col-md-6">
+                    <strong>Fecha: </strong>{{ case.date }}
+                </div>
+                <div class="col-md-6">
+                    <strong>Estatus: </strong>{{ case.status }}
+                </div>
+
+                <div class="col-md-12">
+                    <strong>Descripcion: </strong>
+                    {{ case.description }}
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>Datos de Contacto</h4>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-6">
+                    <strong>Pais: </strong>{{ case.contact.country }}
+                </div>
+                <div class="col-md-6">
+                    <strong>Empresa: </strong>{{ case.contact.company }}
+                </div>
+                <div class="col-md-12">
+                    <strong>Persona Contacto: </strong>{{ case.contact.person }}
+                </div>
+                <div class="col-md-6">
+                    {% if case.contact.document_type == 'Cedula' %}
+                        <strong>Cedula: </strong> {{ case.contact.document }}
+                    {% else %}
+                        <strong>Rif:</strong> {{ case.contact.document }}
+                    {% endif %} 
+                </div>
+                <div class="col-md-6">
+                    <strong>Cargo: </strong>{{ case.contact.rank }}
+                </div>
+                <div class="col-md-12">
+                    <strong>Email: </strong>{{ case.contact.email }}
+                </div>
+                <div class="col-md-6">
+                    <strong>Tel Fijo: </strong> {{ case.contact.phone }}
+                </div>
+                <div class="col-md-6">
+                    <strong>Celular: </strong> {{ case.contact.mobile_phone }}
+                </div>
+                <div class="col-md-6">
+                    <strong>Origen:</strong> {{ case.contact.origin }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>Historia</h4>
+            </div>
+            <div class="panel-body">
+                <table id="table" class="table table-responsive table-striped table-hover">
+                    <thead>
+                        <th>De:</th>
+                        <th>Para:</th>
+                        <th>Fecha:</th>
+                        <th>Notas:</th>
+                        <th>Abrir:</th>
+                    </thead>
+                    <tbody>
+                        {% for track in history %}
+                            <tr>
+                                <td>{{ track.user_from }}</td>
+                                <td>{{ track.user_to }}</td>
+                                <td>{{ track.date }}</td>
+                                <td>{{ track.notes | truncatechars:20 }}</td>
+                                <td><button class="btn btn-xs btn-success" onclick="Abrir('{{ track.notes }}', '{{ track.date }}', '{{ track.user_from }}')">Abrir</button></td>
+                            </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="modal fade" id="myModal">
+          <div class="modal-dialog">
+                <div class="modal-content">
+                      <div class="modal-header" id="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="modal-title"></h4>
+                      </div>
+                      <div class="modal-body" id="modal-body">
+
+                      </div>
+                      <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+{% endblock %}
+{% block extrascripts %}
+    <script src="{{ STATIC_URL }}js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="{{ STATIC_URL }}js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#table').DataTable();
+        });
+    </script>
+    <script type="application/javascript">
+
+        function Abrir(notes,date,from){
+            document.getElementById('modal-title').innerHTML = '<h4>' + from + ' ' + date + '</h4>';
+            document.getElementById('modal-body').innerHTML = notes;
+            $('#myModal').modal('show');
+        }
+    </script>
+{% endblock %}
+{% block extracss %}
+    <link href="{{STATIC_URL}}css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+{% endblock %}

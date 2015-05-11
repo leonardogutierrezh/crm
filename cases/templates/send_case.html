@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block title %}
+    {{ casetrack.case.title }}
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+       <strong>De:</strong> {{ casetrack.user_from }}
+    </div>
+    <div class="col-md-12">
+        <strong>Mensaje:</strong> {{ casetrack.notes }}
+    </div>
+    <div class="col-md-12">
+        <br/>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>Informacion General</h4>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-6">
+                    <strong>Tipo:</strong> {{ casetrack.case.type }}
+                </div>
+                <div class="col-md-6">
+                    <strong>Prioridad: </strong>{{ casetrack.case.priority }}
+                </div>
+                <div class="col-md-6">
+                    <strong>Fecha: </strong>{{ casetrack.case.date }}
+                </div>
+                <div class="col-md-6">
+                    <strong>Estatus: </strong>{{ casetrack.case.status }}
+                </div>
+
+                <div class="col-md-12">
+                    <strong>Descripcion: </strong>
+                    {{ casetrack.case.description }}
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4>Datos de Contacto</h4>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-6">
+                    <strong>Pais: </strong>{{ casetrack.case.contact.country }}
+                </div>
+                <div class="col-md-6">
+                    <strong>Empresa: </strong>{{ casetrack.case.contact.company }}
+                </div>
+                <div class="col-md-12">
+                    <strong>Persona Contacto: </strong>{{ casetrack.case.contact.person }}
+                </div>
+                <div class="col-md-6">
+                    {% if case.contact.document_type == 'Cedula' %}
+                        <strong>Cedula: </strong> {{ casetrack.case.contact.document }}
+                    {% else %}
+                        <strong>Rif:</strong> {{ casetrack.case.contact.document }}
+                    {% endif %}
+                </div>
+                <div class="col-md-6">
+                    <strong>Cargo: </strong>{{ casetrack.case.contact.rank }}
+                </div>
+                <div class="col-md-12">
+                    <strong>Email: </strong>{{ casetrack.case.contact.email }}
+                </div>
+                <div class="col-md-6">
+                    <strong>Tel Fijo: </strong> {{ casetrack.case.contact.phone }}
+                </div>
+                <div class="col-md-6">
+                    <strong>Celular: </strong> {{ casetrack.case.contact.mobile_phone }}
+                </div>
+                <div class="col-md-6">
+                    <strong>Origen:</strong> {{ casetrack.case.contact.origin }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <button type="button" class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#myModal">Reasignar</button>
+    </div>
+</div>
+    <div class="modal fade" id="myModal">
+          <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="" method="post">{% csrf_token %}
+                          <div class="modal-header" id="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="modal-title">Reasignar</h4>
+                          </div>
+                          <div class="modal-body" id="modal-body">
+                                {{ form | bootstrap }}
+
+                          </div>
+                          <div class="modal-footer">
+                              <input type="submit" class="btn btn-success" value="Enviar"/>
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                    </form>
+                </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+{% endblock %}
+{% block extrascripts %}
+    <script src="{{ STATIC_URL }}js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="{{ STATIC_URL }}js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#table').DataTable();
+        });
+    </script>
+    <script type="application/javascript">
+
+        function Abrir(notes,date,from){
+            document.getElementById('modal-title').innerHTML = '<h4>' + from + ' ' + date + '</h4>';
+            document.getElementById('modal-body').innerHTML = notes;
+            $('#myModal').modal('show');
+        }
+    </script>
+{% endblock %}
+{% block extracss %}
+    <link href="{{STATIC_URL}}css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+{% endblock %}
