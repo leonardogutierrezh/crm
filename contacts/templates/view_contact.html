@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}
+    Ver contacto
+{% endblock %}
+{% block  content %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            {{ contact.person }}
+        </div>
+        <div class="panel-body">
+            <div class="col-sm-6">
+                <strong>Compañia: </strong> {{ contact.company }}
+            </div>
+            <div class="col-sm-6">
+                <strong>Cargo: </strong> {{ contact.rank }}
+            </div>
+            <div class="col-sm-6">
+                <strong>Telefono: </strong> {{ contact.phone }}
+            </div>
+            <div class="col-sm-6">
+                <strong>Email: </strong> {{ contact.email }}
+            </div>
+            <div class="col-sm-6">
+                <strong>Celular: </strong> {{ contact.mobile_phone }}
+            </div>
+            <div class="col-sm-6">
+                <strong>Tipo de cliente: </strong> {{ contact.type }}
+            </div>
+            <div class="col-sm-6">
+                <strong>Origen: </strong> {{ contact.origin }}
+            </div>
+            <div class="col-sm-6">
+                <strong>{{ contact.document_type }}: </strong>  {{ contact.document }}
+            </div>
+            <div class="col-sm-6">
+                <strong>Pais: </strong> {{ contact.country }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

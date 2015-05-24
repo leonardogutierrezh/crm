@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}
+    Contactos
+{% endblock %}
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <table id="table" class="table table-responsive table-striped table-hover">
+                <thead>
+                    <th>Compañia</th>
+                    <th>Persona Contacto</th>
+                    <th>Continuar</th>
+                </thead>
+                <tbody>
+                    {% for contact in contact_list %}
+                        <tr>
+                            <td>{{ contact.company }}</td>
+                            <td>{{ contact.person }}</td>
+                            <td><a href="{% url 'view_contact' contact.pk %}" class="btn btn-default btn-xs">Ver</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-success pull-right" href="{% url "contact_create" %}">Nuevo Contacto</a>
+            <br/><br/>
+        </div>
+    </div>
+{% endblock %}
+{% block extrascripts %}
+    <script src="{{ STATIC_URL }}js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="{{ STATIC_URL }}js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#table').DataTable();
+        });
+        function Delete(pk){
+            var result = confirm("Want to delete?");
+            if (result) {
+                var url = '/clients/delete/' + pk;
+                window.location = url;
+                //Logic to delete the item
+            }
+        }
+    </script>
+{% endblock %}
+{% block extracss %}
+    <link href="{{STATIC_URL}}css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+{% endblock %}
