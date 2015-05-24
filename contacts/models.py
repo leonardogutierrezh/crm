@@ -35,3 +35,4 @@ class Contact(models.Model):
     origin = models.CharField(max_length=100, verbose_name='Origen del cliente', choices=c_origin)
     document_type = models.CharField(max_length=20, verbose_name='Tipo de Documento', choices=c_document_type, blank=True, null=True)
     document = models.CharField(max_length=100, verbose_name='Rif o Cedula', null=True, blank=True)
+    notes = models.TextField(max_length=100, verbose_name='Notas', null=True, blank=True)
