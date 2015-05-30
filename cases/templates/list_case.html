@@ -36,7 +36,7 @@
                             <td>
                                 <a href="{% url 'view_case' case.pk %}" class="btn btn-default btn-xs">Ver</a>
                                 <a href="" class="btn btn-default btn-xs">Editar</a>
-                                <a href="" class="btn btn-danger btn-xs">Borrar</a>
+                                {% if user.is_superuser %}<button onclick="Delete({{ case.pk }})" class="btn btn-danger btn-xs">Borrar</button>{% endif %}
                             </td>
                         </tr>
 
@@ -56,11 +56,22 @@
         $(document).ready(function(){
             $('#table').DataTable();
         });
+
         function Delete(pk){
-            var result = confirm("Want to delete?");
+            var result = confirm("Estas seguro que deseas borrar este caso?");
             if (result) {
-                var url = '/clients/delete/' + pk;
-                window.location = url;
+                DeleteSure(pk);
+            }
+        }
+        function DeleteSure(pk){
+            var result = confirm("Acuerdate que si estas cagandola Jorge se va a molestar!!, quieres borrar el caso?");
+
+            if (result) {
+                console.log('entre');
+                var url = '/case/delete/' + pk;
+
+                window.location.href = url
+
                 //Logic to delete the item
             }
         }

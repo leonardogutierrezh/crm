@@ -170,3 +170,16 @@ class SendCase(generic.CreateView):
 
 
         return super(ModelFormMixin, self).form_valid(form)
+
+def delete_case(request, pk):
+    print "entre"
+    print request.user.is_superuser
+    if request.user.is_superuser:
+        case = Case.objects.get(pk=pk)
+        name = case.title
+        case.delete()
+        messages.add_message(request, messages.INFO, 'El caso ' + name + ' ha sido borrado sactisfactoriamente', extra_tags='success')
+        return HttpResponseRedirect(reverse('list_case'))
+    else:
+        messages.add_message(request, messages.INFO, 'Permiso Denegado!', extra_tags='success')
+        return HttpResponseRedirect(reverse('list_case'))

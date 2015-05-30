@@ -72,6 +72,14 @@
           <h1 class="page-header">CRM</h1>
 
           <h2 class="sub-header">{% block title %}{% endblock %}</h2>
+            {% for message in messages %}
+                        <div class="alert alert-{{ message.extra_tags }}">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                            &times;
+                            </button>
+                            {{ message | safe }}
+                        </div>
+            {% endfor %}
             {% block content %}
 
             {% endblock %}
