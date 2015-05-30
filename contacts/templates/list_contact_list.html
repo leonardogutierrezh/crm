@@ -15,8 +15,9 @@
                 </thead>
                 <tbody>
                     {% for contact in contact_list %}
-                        <tr>{{ contact.id }}</tr>
+
                         <tr>
+                            <td>{{ contact.id }}</td>
                             <td>{{ contact.company }}</td>
                             <td>{{ contact.person }}</td>
                             <td>
