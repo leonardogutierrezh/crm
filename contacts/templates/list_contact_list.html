@@ -8,12 +8,14 @@
         <div class="col-md-12">
             <table id="table" class="table table-responsive table-striped table-hover">
                 <thead>
+                    <th>Id</th>
                     <th>Compañia</th>
                     <th>Persona Contacto</th>
                     <th>Continuar</th>
                 </thead>
                 <tbody>
                     {% for contact in contact_list %}
+                        <tr>{{ contact.id }}</tr>
                         <tr>
                             <td>{{ contact.company }}</td>
                             <td>{{ contact.person }}</td>
