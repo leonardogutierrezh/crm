@@ -172,7 +172,6 @@ class SendCase(generic.CreateView):
         return super(ModelFormMixin, self).form_valid(form)
 
 def delete_case(request, pk):
-    print "entre"
     print request.user.is_superuser
     if request.user.is_superuser:
         case = Case.objects.get(pk=pk)

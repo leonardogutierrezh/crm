@@ -20,6 +20,9 @@
                             <td>
                                 <a href="{% url 'view_contact' contact.pk %}" class="btn btn-default btn-xs">Ver</a>
                                 <a href="{% url 'edit_contact' contact.pk %}" class="btn btn-warning btn-xs">Editar</a>
+                                {% if  user.is_superuser %}
+                                    <button onclick="Delete({{ contact.pk }})" class="btn-xs btn-danger btn">Borrar</button>
+                                {% endif %}
                             </td>
                         </tr>
                     {% endfor %}
@@ -47,6 +50,25 @@
             if (result) {
                 var url = '/clients/delete/' + pk;
                 window.location = url;
+                //Logic to delete the item
+            }
+        }
+
+        function Delete(pk){
+            var result = confirm("Estas seguro que deseas borrar este caso?");
+            if (result) {
+                DeleteSure(pk);
+            }
+        }
+        function DeleteSure(pk){
+            var result = confirm("Acuerdate que si estas cagandola Jorge se va a molestar!!, quieres borrar el caso?");
+
+            if (result) {
+                console.log('entre');
+                var url = '/contact/delete/' + pk;
+
+                window.location.href = url
+
                 //Logic to delete the item
             }
         }
