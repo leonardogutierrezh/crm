@@ -17,7 +17,10 @@
                         <tr>
                             <td>{{ contact.company }}</td>
                             <td>{{ contact.person }}</td>
-                            <td><a href="{% url 'view_contact' contact.pk %}" class="btn btn-default btn-xs">Ver</a></td>
+                            <td>
+                                <a href="{% url 'view_contact' contact.pk %}" class="btn btn-default btn-xs">Ver</a>
+                                <a href="{% url 'edit_contact' contact.pk %}" class="btn btn-warning btn-xs">Editar</a>
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
